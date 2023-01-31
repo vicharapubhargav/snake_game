@@ -221,7 +221,28 @@ class Food:
 
 
 def display_high_score(surface, main_surface):
-   pass
+    player_lbl = heading1.render('High Scores', True, (0, 0, 0))
+    player_lbl_rect = player_lbl.get_rect(
+        topleft=(GRID_WIDTH * 1.25, GRID_HEIGHT))
+    main_surface.blit(player_lbl, player_lbl_rect)
+
+    file = open("High_Scores.txt", "rt")
+    top10HighScores.clear()
+    surface.fill("lightslategrey")
+    i = 35
+    head1 = monospace.render(f'PLAYER', True, (0, 0, 0))
+    head2 = monospace.render(f'SCORE', True, (0, 0, 0))
+    surface.blit(head1, [25, 10])
+    surface.blit(head2, [240, 10])
+
+    for line in file:
+        split = line.replace('\n', '').split(' - ')
+        top10HighScores[split[0]] = int(split[1])
+        surface.blit(monospace.render('{:>3}'.format(split[0]), True, (0, 0, 0)), [25, i + 5])
+        surface.blit(monospace.render('{:30}'.format(split[1]), True, (0, 0, 0)), [240, i + 5])
+        i += 20
+    main_surface.blit(surface, (GRID_WIDTH * 1.25, GRID_HEIGHT * 2.55))
+   
 
 def left_panel(surface):
     pass
